@@ -11,17 +11,56 @@ function start(e) {
     var $myList = $('#list');
 
     $todoForm.on('submit', addTodo);
+
+    $.get("http://tiny-pizza-server.herokuapp.com/collections/zamariac", gotServer
+
+    )
+
+    function gotServer(data){
+        console.log(data)
+    }
     
     
     function addTodo(e) {
         e.preventDefault();
 
-        $myList.html($inputBox.val())
-        $inputBox.val('');
-        
-}
+        var todoList = '<div>' +($inputBox.val())+ '</div>'
 
-}
+        $myList.append(todoList)
+        
+
+        $.ajax({
+            method: "POST",
+            url: "http://tiny-pizza-server.herokuapp.com/collections/zamariac",
+            data: { Todo: $inputBox.val()}
+        })
+
+        $inputBox.val('');
+
+	}
+
+    $myList.on('click', onclick);
+
+    function onclick(e){ 
+
+
+        $(e.target).css('text-decoration', 'line-through');
+
+    }
+
+
+	
+};
+
+
+
+
+// $.get
+// $.post
+// $.ajax
+
+    
+
         
 
     
